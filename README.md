@@ -27,7 +27,6 @@ Si todo está correcto, se mostrará en la consola:
 API corriendo en http://localhost:2525
 ```
 
-## Endpoints Disponibles
 
 ### Crear un nuevo incidente
 - **Método:** `POST`
