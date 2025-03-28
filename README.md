@@ -24,7 +24,7 @@ node server.js
 ```
 Si todo está correcto, se mostrará en la consola:
 ```
-API corriendo en http://localhost:2525
+API corriendo en http://localhost:2511
 ```
 
 
@@ -40,7 +40,7 @@ API corriendo en http://localhost:2525
 ```
 - **Ejemplo de uso en Git Bash:**
 ```powershell
-curl -X POST http://localhost:2525/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
+curl -X POST http://localhost:2511/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
 
 ```
 
@@ -49,7 +49,7 @@ curl -X POST http://localhost:2525/incidents -H "Content-Type: application/json"
 - **Endpoint:** `/incidents`
 - **Ejemplo de uso:**
 ```sh
-curl -X GET http://localhost:2525/incidents
+curl -X GET http://localhost:2511/incidents
 ```
 
 ### Obtener un incidente por ID
@@ -57,7 +57,7 @@ curl -X GET http://localhost:2525/incidents
 - **Endpoint:** `/incidents/{id}`
 - **Ejemplo de uso:**
 ```sh
-curl -X GET http://localhost:2525/incidents/1
+curl -X GET http://localhost:2511/incidents/1
 ```
 
 ## Notas Importantes
