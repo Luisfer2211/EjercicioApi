@@ -20,7 +20,7 @@ npm install
 
 ### Ejecutar el servidor
 ```sh
-node server.js
+node apifuncional.js
 ```
 Si todo está correcto, se mostrará en la consola:
 ```
