@@ -15,7 +15,7 @@ Seguir estos pasos para ejecutar la API en una máquina local.
 ### Instalar dependencias
 Ejecutar el siguiente comando en la terminal dentro de la carpeta del proyecto:
 ```sh
-npm install
+npm install express
 ```
 
 ### Ejecutar el servidor
@@ -24,7 +24,7 @@ node apifuncional.js
 ```
 Si todo está correcto, se mostrará en la consola:
 ```
-API corriendo en http://localhost:2511
+API corriendo en http://localhost:2211
 ```
 
 
@@ -40,7 +40,7 @@ API corriendo en http://localhost:2511
 ```
 - **Ejemplo de uso en Git Bash:**
 ```powershell
-curl -X POST http://localhost:2511/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
+curl -X POST http://localhost:2211/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
 
 ```
 
@@ -49,7 +49,7 @@ curl -X POST http://localhost:2511/incidents -H "Content-Type: application/json"
 - **Endpoint:** `/incidents`
 - **Ejemplo de uso:**
 ```sh
-curl -X GET http://localhost:2511/incidents
+curl -X GET http://localhost:2211/incidents
 ```
 
 ### Obtener un incidente por ID
@@ -57,7 +57,7 @@ curl -X GET http://localhost:2511/incidents
 - **Endpoint:** `/incidents/{id}`
 - **Ejemplo de uso:**
 ```sh
-curl -X GET http://localhost:2511/incidents/1
+curl -X GET http://localhost:2211/incidents/1
 ```
 
 ## Notas Importantes
