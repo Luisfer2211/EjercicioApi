@@ -2,7 +2,7 @@
 # Incident API
 
 ## Descripción
-Esta API permite a los empleados de una empresa reportar incidentes relacionados con sus equipos de trabajo (computadoras, impresoras, redes, etc.).
+Esta API permite a los empleados de una empresa reportar incidentes relacionados con sus equipos de trabajo.
 
 ## Instalación y Ejecución
 
@@ -35,13 +35,13 @@ API corriendo en http://localhost:2525
 - **Cuerpo de la solicitud (JSON):**
 ```json
 {
-  "reporter": "Juan Pérez",
+  "reporter": "Achebe Gual",
   "description": "La impresora no funciona"
 }
 ```
 - **Ejemplo de uso en Git Bash:**
 ```powershell
-curl -X POST http://localhost:2525/incidents -H "Content-Type: application/json" -d '{"reporter":"Juan","description":"La impresora no funciona correctamente"}'
+curl -X POST http://localhost:2525/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
 
 ```
 
