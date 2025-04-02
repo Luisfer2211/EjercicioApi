@@ -28,6 +28,8 @@ node apifuncional.js
 Si todo está correcto, se mostrará en la consola:
 ```
 API corriendo en http://localhost:2211
+Base de datos "Incidentes_bat" creada exitosamente.
+Tabla "incidents" creada o ya existe
 ```
 
 ---
