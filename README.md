@@ -43,12 +43,12 @@ Tabla "incidents" creada o ya existe
 ```json
 {
   "reporter": "Achebe Gual",
-  "description": "La impresora no funciona"
+  "description": "No he hecho la tarea de Ing de software"
 }
 ```
 - **Ejemplo de uso en Git Bash:**
 ```sh
-curl -X POST http://localhost:2211/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe","description":"La impresora no funciona correctamente"}'
+curl -X POST http://localhost:2211/incidents -H "Content-Type: application/json" -d '{"reporter":"Achebe Gual","description":"No he hecho la tarea de Ing de software"}'
 ```
 
 ### Obtener todos los incidentes
