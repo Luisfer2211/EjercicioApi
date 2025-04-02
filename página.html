@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Incidentes</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input, select, button { margin: 5px; padding: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h2>Gestión de Incidentes</h2>
+    
+    <h3>Crear Incidente</h3>
+    <input type="text" id="reporter" placeholder="Nombre del reportero">
+    <input type="text" id="description" placeholder="Descripción (mínimo 10 caracteres)">
+    <button onclick="createIncident()">Crear</button>
+    
+    <h3>Buscar Incidente por ID</h3>
+    <input type="number" id="incidentId" placeholder="ID del incidente">
+    <button onclick="getIncidentById()">Buscar</button>
+    <p id="incidentDetails"></p>
+    
+    <h3>Lista de Incidentes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reportero</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="incidentList"></tbody>
+    </table>
+    
+    <script>
+        const API_URL = "http://localhost:2211/incidents";
+
+        async function fetchIncidents() {
+            const response = await fetch(API_URL);
+            const incidents = await response.json();
+            const tableBody = document.getElementById("incidentList");
+            tableBody.innerHTML = "";
+            incidents.forEach(incident => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${incident.id}</td>
+                        <td>${incident.reporter}</td>
+                        <td>${incident.description}</td>
+                        <td>
+                            <select onchange="updateStatus(${incident.id}, this.value)">
+                                <option value="pendiente" ${incident.status === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+                                <option value="en proceso" ${incident.status === 'en proceso' ? 'selected' : ''}>En Proceso</option>
+                                <option value="resuelto" ${incident.status === 'resuelto' ? 'selected' : ''}>Resuelto</option>
+                            </select>
+                        </td>
+                        <td><button onclick="deleteIncident(${incident.id})">Eliminar</button></td>
+                    </tr>`;
+            });
+        }
+
+        async function createIncident() {
+            const reporter = document.getElementById("reporter").value;
+            const description = document.getElementById("description").value;
+            
+            if (!reporter) {
+                alert("El reportero es obligatorio.");
+                return;
+            }
+            if (description.length < 10) {
+                alert("La descripción debe tener al menos 10 caracteres.");
+                return;
+            }
+            
+            await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ reporter, description })
+            });
+            fetchIncidents();
+        }
+        
+        async function getIncidentById() {
+            const id = document.getElementById("incidentId").value;
+            const response = await fetch(`${API_URL}/${id}`);
+            if (response.ok) {
+                const incident = await response.json();
+                document.getElementById("incidentDetails").innerText = `ID: ${incident.id}, Reportero: ${incident.reporter}, Estado: ${incident.status}`;
+            } else {
+                document.getElementById("incidentDetails").innerText = "Incidente no encontrado";
+            }
+        }
+
+        async function updateStatus(id, status) {
+            await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status })
+            });
+            fetchIncidents();
+        }
+
+        async function deleteIncident(id) {
+            if (confirm("¿Seguro que quieres eliminar este incidente?")) {
+                await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+                fetchIncidents();
+            }
+        }
+
+        fetchIncidents();
+    </script>
+</body>
+</html>
