@@ -1,5 +1,5 @@
 const express = require('express');
-const { Pool, Client } = require('pg'); // Importamos Pool y Client
+const { Pool, Client } = require('pg'); 
 const app = express();
 const port = 2211;
 const cors = require('cors');
@@ -7,15 +7,14 @@ const cors = require('cors');
 const DB_NAME = 'Incidentes_bat';
 const DB_USER = 'postgres';
 const DB_HOST = 'localhost';
-const DB_PASSWORD = 'lol';
+const DB_PASSWORD = 'lol'; //esta variable se cambia por la contraseña q tengan xd 
 const DB_PORT = 5432;
 
-// Conexión inicial para asegurarse de que la base de datos existe
 const initDatabase = async () => {
     const client = new Client({
         user: DB_USER,
         host: DB_HOST,
-        database: 'postgres', // Usamos la BD postgres para la creación
+        database: 'postgres', 
         password: DB_PASSWORD,
         port: DB_PORT,
     });
@@ -37,16 +36,14 @@ const initDatabase = async () => {
     }
 };
 
-// Pool de conexión a la base de datos principal
 const pool = new Pool({
     user: DB_USER,
     host: DB_HOST,
-    database: DB_NAME, // Ahora nos conectamos a Incidentes_bat
+    database: DB_NAME, 
     password: DB_PASSWORD,
     port: DB_PORT,
 });
 
-// Crear la tabla si no existe
 const createTable = async () => {
     const query = `
         CREATE TABLE IF NOT EXISTS incidents (
@@ -65,7 +62,6 @@ const createTable = async () => {
     }
 };
 
-// Ejecutar la inicialización de la base de datos y la tabla
 const initialize = async () => {
     await initDatabase();
     await createTable();
@@ -76,7 +72,6 @@ initialize();
 app.use(express.json());
 app.use(cors());
 
-// Crear un nuevo incidente
 app.post('/incidents', async (req, res) => {
     const { reporter, description } = req.body;
 
@@ -103,7 +98,6 @@ app.post('/incidents', async (req, res) => {
     }
 });
 
-// Obtener todos los incidentes
 app.get('/incidents', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM incidents');
@@ -114,13 +108,12 @@ app.get('/incidents', async (req, res) => {
     }
 });
 
-// Obtener un incidente específico por ID
 app.get('/incidents/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query('SELECT * FROM incidents WHERE id = $1', [id]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Incidente no encontrado' });
+            return res.status(404).json({ error: '404 Not Found - Incidente no encontrado' });
         }
         res.json(result.rows[0]);
     } catch (err) {
@@ -129,7 +122,6 @@ app.get('/incidents/:id', async (req, res) => {
     }
 });
 
-// Actualizar el estado de un incidente
 app.put('/incidents/:id', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -141,7 +133,7 @@ app.put('/incidents/:id', async (req, res) => {
     try {
         const result = await pool.query('UPDATE incidents SET status = $1 WHERE id = $2 RETURNING *', [status, id]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Incidente no encontrado' });
+            return res.status(404).json({ error: '404 Not Found - Incidente no encontrado' });
         }
         res.json({ message: 'Estado actualizado correctamente', incident: result.rows[0] });
     } catch (err) {
@@ -150,13 +142,12 @@ app.put('/incidents/:id', async (req, res) => {
     }
 });
 
-// Eliminar un incidente
 app.delete('/incidents/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query('DELETE FROM incidents WHERE id = $1 RETURNING *', [id]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Incidente no encontrado' });
+            return res.status(404).json({ error: '404 Not Found - Incidente no encontrado' });
         }
         res.json({ message: 'Incidente eliminado correctamente' });
     } catch (err) {
