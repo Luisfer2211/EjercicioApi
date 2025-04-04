@@ -21,6 +21,9 @@ npm install express pg cors
 La API creará automáticamente la base de datos y la tabla si no existen.
 Asegúrate de que PostgreSQL esté en ejecución antes de iniciar la API.
 
+### IMPORTANTE
+Cambiar const DB_PASSWORD por la contraseña que hayas configurado en postgre
+
 ### Ejecutar el Servidor
 ```sh
 node apifuncional.js
